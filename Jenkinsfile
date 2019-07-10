@@ -1,28 +1,38 @@
 pipeline {
- agent any
- 
-String credentialsId = 'awsmysqldb'
-
-try {
-  stage('checkout') {
-    node {
-      cleanWs()
-      checkout scm
+    agent {
+        node {
+            label 'master'
+        }
     }
-  }
-}
 
- 
- stage(‘Provision infrastructure’) {
- 
- steps {
+    stages {
 
- sh ‘terraform init’
- sh ‘terraform plan -out=plan’
- // sh ‘terraform destroy -auto-approve’
- sh ‘terraform apply plan’
-  }
- }
+        stage('terraform started') {
+            steps {
+                sh 'echo "Started...!" '
+            }
+        }
+        stage('git clone') {
+            steps {
+                sh 'sudo rm -r *;sudo git clone https://github.com/ravikishore555k/terraform1.git'
+            }
+        }
+        stage('terraform init') {
+            steps {
+                sh 'sudo /home/ec2-user/terraform init ./jenkins'
+            }
+        }
+        stage('terraform plan') {
+            steps {
+                sh 'ls ./jenkins; sudo /home/ec2-user/terraform plan ./jenkins'
+            }
+        }
+        stage('terraform ended') {
+            steps {
+                sh 'echo "Ended....!!"'
+            }
+        }
 
-
+        
+    }
 }
