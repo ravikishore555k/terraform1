@@ -1,12 +1,16 @@
 pipeline {
  agent any
  
- stages {
- stage(‘checkout’) {
- steps {
- git branch: ‘terraform1’, git url: ‘https://github.com/ravikishore555k/terraform1.git’
- }
- }
+String credentialsId = 'awsCredentials'
+
+try {
+  stage('checkout') {
+    node {
+      cleanWs()
+      checkout scm
+    }
+  }
+}
  stage(‘Set Terraform path’) {
  steps {
  script {
