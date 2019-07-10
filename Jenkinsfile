@@ -1,7 +1,6 @@
 pipeline {
  agent any
  
- String credentialsId = 'awsmysqldb'
   
  stages {
  stage('checkout') {
