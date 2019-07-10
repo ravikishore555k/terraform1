@@ -4,7 +4,7 @@ pipeline {
  stages {
  stage(‘checkout’) {
  steps {
- git branch: ‘develop’, url: ‘https://github.com/ravikishore555k/terraform1.git’
+ git branch: ‘terraform1’, url: ‘https://github.com/ravikishore555k/terraform1.git’
  
  }
  }
